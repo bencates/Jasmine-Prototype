@@ -11,7 +11,7 @@ It is heavily based on [jasmine-jquery](http://github.com/velesin/jasmine-jquery
 
 jasmine-prototype provides following custom matchers (in alphabetical order):
 
-- `toBe(jQuerySelector)`
+- `toBe(CssSelector)`
   - e.g. `expect($('<div id="some-id"></div>')).toBe('div#some-id')`
 - `toBeAnElement()`
 - `toBeChecked()`
@@ -85,7 +85,7 @@ Several methods for loading fixtures are provided:
 - `set(html)`
   - Doesn't load fixture from file, but instead gets it directly as a parameter (html parameter may be a string or a Prototype element, so both `set('<div></div>')` and `set(new Element('div'))` will work). Automatically appends fixture to the DOM (to the fixtures container). It is useful if your fixture is too simple to keep it in an external file or is constructed procedurally, but you still want Fixture module to automatically handle DOM insertion and clean-up between tests for you.
 - `preload(fixtureUrl[, fixtureUrl, ...])`
-  - Pre-loads fixture(s) from one or more files and stores them into cache, without returning them or appending them to the DOM. All subsequent calls to `load` or `read` methods will then get fixtures content from cache, without making any AJAX calls (unless cache is manually purged by using `clearCache` method). Pre-loading all fixtures before a test suite is run may be useful when working with libraries like jasmine-ajax that block or otherwise modify the inner workings of JS or jQuery AJAX calls.
+  - Pre-loads fixture(s) from one or more files and stores them into cache, without returning them or appending them to the DOM. All subsequent calls to `load` or `read` methods will then get fixtures content from cache, without making any AJAX calls (unless cache is manually purged by using `clearCache` method). Pre-loading all fixtures before a test suite is run may be useful when working with libraries like jasmine-ajax that block or otherwise modify the inner workings of JS or Prototype AJAX calls.
 
 All of above methods have matching global short cuts:
 
