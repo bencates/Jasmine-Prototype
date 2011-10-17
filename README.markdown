@@ -27,6 +27,8 @@ jasmine-prototype provides following custom matchers (in alphabetical order):
 - `toBeVisible()`
 - `toContain(CssSelector)`
   - e.g. `expect(new Element('div').insert(<span class="some-class"></span>')).toContain('span.some-class')`
+- `toHandle(eventName)`
+- `toHandleWith(eventName, eventHandler)`
 - `toHaveAttr(attributeName, attributeValue)`
   - attribute value is optional, if omitted it will check only if attribute exists
 - `toHaveBeenTriggeredOn(selector)`
@@ -136,11 +138,13 @@ Additionally, two clean up methods are provided:
 
 These two methods do not have global short cut functions.
 
-## Event Spies
+## Event Spies and Mocks
+
+Native events can be fired using the function `triggerEvent(element, event)`.
 
 Spying on Prototype events can be done with `spyOnEvent` and
 `assert(eventName).toHaveBeenTriggeredOn(selector)`. First, spy on the event:
 
-    spyOnEvent($('some_element'), 'my:event');
-    $('some_element').fire('my:event');
-    expect('my:event').toHaveBeenTriggeredOn($('some_element'));
+    spyOnEvent($('some_element'), 'click');
+    triggerEvent($('some_element'), 'click');
+    expect('click').toHaveBeenTriggeredOn($('some_element'));

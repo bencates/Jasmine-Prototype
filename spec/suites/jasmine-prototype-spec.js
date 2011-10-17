@@ -21,8 +21,8 @@ describe("jasmine.Fixtures", function() {
       expect(jasmine.getFixtures().containerId).toEqual('jasmine-fixtures');
     });
     
-    it("should set 'spec/javascripts/fixtures' as the default fixtures path", function() {
-      expect(jasmine.getFixtures().fixturesPath).toEqual('spec/javascripts/fixtures');
+    it("should set '/spec/javascripts/fixtures' as the default fixtures path", function() {
+      expect(jasmine.getFixtures().fixturesPath).toEqual('/spec/javascripts/fixtures');
     });
   });
 
@@ -254,7 +254,8 @@ describe("jasmine.Fixtures", function() {
   });
 });
 
-describe("jasmine.Fixtures using real AJAX call", function() {
+// This needs to be on a real server to pass
+xdescribe("jasmine.Fixtures using real AJAX call", function() {
   var defaultFixturesPath;
 
   beforeEach(function() {
@@ -283,6 +284,25 @@ describe("jasmine.Fixtures using real AJAX call", function() {
         jasmine.getFixtures().read(fixtureUrl);
       }).toThrow();
     });
+  });
+});
+
+describe("event Spies and Mocks", function() {
+  describe("spyOnEvent", function() {
+    
+  });
+  
+  describe("triggerEvent", function() {
+    beforeEach(function() {
+      setFixtures(sandbox().update('<a id="link">Click Me</a> <a id="otherlink">Other Link</a>'));
+      spyOnEvent($('link'), 'click');
+    });
+    
+    it('should trigger the event on the object', function() {
+      triggerEvent($('link'), 'click');
+      expect('click').toHaveBeenTriggeredOn($('link'));
+    });
+    
   });
 });
 
@@ -451,41 +471,6 @@ describe("Prototype matchers", function() {
     });
   });
 
-  xdescribe("toHaveData", function() {
-    var key = 'some key';
-    var value = 'some value';
-    var wrongKey = 'wrong key';
-    var wrongValue = 'wrong value';
-
-    beforeEach(function() {
-      setFixtures(sandbox().data(key, value));
-    });
-
-    describe("when only key is provided", function() {
-      it("should pass if element has matching data key", function() {
-        expect($('#sandbox')).toHaveData(key);
-      });
-
-      it("should pass negated if element has no matching data key", function() {
-        expect($('#sandbox')).not.toHaveData(wrongKey);
-      });
-    });
-
-    describe("when both key and value are provided", function() {
-      it("should pass if element has matching key with matching value", function() {
-        expect($('#sandbox')).toHaveData(key, value);
-      });
-
-      it("should pass negated if element has matching key but with wrong value", function() {
-        expect($('#sandbox')).not.toHaveData(key, wrongValue);
-      });
-
-      it("should pass negated if element has no matching key", function() {
-        expect($('#sandbox')).not.toHaveData(wrongKey, value);
-      });
-    });
-  });
-
   describe("toBeVisible", function() {
     it("should pass on visible element", function() {
       setFixtures(sandbox());
@@ -642,7 +627,7 @@ describe("Prototype matchers", function() {
     });
   });
   
-  xdescribe('toHandle', function() {
+  describe('toHandle', function() {
     beforeEach(function() {
       setFixtures(sandbox().update('<a id="clickme">Click Me</a> <a id="otherlink">Other Link</a>'));
     });
@@ -659,27 +644,27 @@ describe("Prototype matchers", function() {
 
   });
   
-  xdescribe('toHandleWith', function() {
+  describe('toHandleWith', function() {
     beforeEach(function() {
-      setFixtures(sandbox().html('<a id="clickme">Click Me</a> <a id="otherlink">Other Link</a>'));
+      setFixtures(sandbox().update('<a id="clickme">Click Me</a> <a id="otherlink">Other Link</a>'));
     });
 
     it('should pass if the event is bound with the given handler', function() {
       var handler = function(){ }; // noop
-      $('#clickme').bind("click", handler);
-      expect($('#clickme')).toHandleWith("click", handler);
+      $('clickme').observe("click", handler);
+      expect($('clickme')).toHandleWith("click", handler);
     });
     
     it('should pass if the event is not bound with the given handler', function() {
       var handler = function(){ };
-      $('#clickme').bind("click", handler);
+      $('clickme').observe("click", handler);
       
       var aDifferentHandler = function(){ };
-      expect($('#clickme')).not.toHandleWith("click", aDifferentHandler);
+      expect($('clickme')).not.toHandleWith("click", aDifferentHandler);
     });
     
     it('should pass if the event is not bound at all', function() {
-      expect($('#clickme')).not.toHandle("click");
+      expect($('clickme')).not.toHandle("click");
     });
 
   });
