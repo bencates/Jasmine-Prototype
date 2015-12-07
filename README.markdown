@@ -18,7 +18,7 @@ jasmine-prototype provides following custom matchers (in alphabetical order):
   - only for tags that have checked attribute
   - e.g. `expect(new Element('input', { type: "checkbox", checked: true })).toBeChecked()` 
 - `toBeDisabled()`
-  - e.g. 'expect(new Element('input', { type: "submit", disabled: true })).toBeDisabled()'
+  - e.g. `expect(new Element('input', { type: "submit", disabled: true })).toBeDisabled()`
 - `toBeEmpty()`  
 - `toBeHidden()`
 - `toBeSelected()`
