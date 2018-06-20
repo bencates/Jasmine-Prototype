@@ -1,6 +1,6 @@
 # jasmine-prototype
 
-jasmine-prototype provides two extensions for [Jasmine](http://pivotal.github.com/jasmine/) JavaScript Testing Framework:
+jasmine-prototype provides two extensions for [Jasmine](https://jasmine.github.io/) JavaScript Testing Framework:
   
 - a set of custom matchers for Prototype elements
 - an API for handling HTML fixtures in your specs
